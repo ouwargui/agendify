@@ -2,7 +2,6 @@
 
 import {Moon, Sun} from 'lucide-react';
 import {useTheme} from 'next-themes';
-import * as React from 'react';
 
 import {Button} from '@/components/ui/button';
 import {
@@ -12,15 +11,16 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {useEffect, useState} from 'react';
+// import {useState} from 'react';
 
 export function ThemeToggle() {
-  const [mounted, setMounted] = useState(false);
+  // const [mounted, setMounted] = useState(false);
   const {setTheme, theme} = useTheme();
 
-  useEffect(() => setMounted(true), []);
+  // We need to check if mounted to avoid hydration mismatch
+  // useEffect(() => setMounted(true), []);
 
-  if (!mounted) return null;
+  // if (!mounted) return null;
 
   return (
     <DropdownMenu>
