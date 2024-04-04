@@ -1,7 +1,6 @@
 'use client';
-import Link from 'next/link';
-
 import {loginAction} from '@/actions/login';
+import {signInWithOAuth} from '@/actions/oauth-sign';
 import {Button} from '@/components/ui/button';
 import {
   Form,
@@ -13,6 +12,7 @@ import {
 } from '@/components/ui/form';
 import {Input} from '@/components/ui/input';
 import {zodResolver} from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
 import {useToast} from './ui/use-toast';
@@ -67,18 +67,20 @@ export function LoginForm() {
 
     toast({
       title: 'Failed to login',
-      description: response.errors?.message ?? 'An unknown error occurred',
+      description:
+        response.errors?.message ??
+        'An unknown error occurred, try again later.',
       variant: 'destructive',
     });
   }
 
+  async function onSignInWithOAuth() {
+    await signInWithOAuth();
+  }
+
   return (
     <Form {...form} formState={{isSubmitting, isValid, errors, ...formState}}>
-      <form
-        className="grid gap-4"
-        onSubmit={form.handleSubmit(onSubmit)}
-        noValidate
-      >
+      <form className="grid gap-4" noValidate>
         <FormField
           control={form.control}
           name="email"
@@ -120,12 +122,17 @@ export function LoginForm() {
         />
         <Button
           type="submit"
+          onClick={form.handleSubmit(onSubmit)}
           className="w-full"
           disabled={!isValid || isSubmitting}
         >
           Login
         </Button>
-        <Button variant="outline" className="w-full transition-all">
+        <Button
+          onClick={onSignInWithOAuth}
+          variant="outline"
+          className="w-full transition-all"
+        >
           Login with Google
         </Button>
       </form>

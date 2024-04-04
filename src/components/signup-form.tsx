@@ -1,5 +1,6 @@
 'use client';
 
+import {signUpAction} from '@/actions/sign-up';
 import {Button} from '@/components/ui/button';
 import {
   Form,
@@ -61,25 +62,47 @@ export function SignupForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const response = await fetch('/api/auth/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    });
+    const formData = new FormData();
+    formData.set('firstName', values.firstName);
+    formData.set('lastName', values.lastName);
+    formData.set('email', values.email);
+    formData.set('password', values.password);
+    formData.set('confirmPassword', values.confirmPassword);
 
-    const data = await response.json();
+    const response = await signUpAction(formData);
 
-    if (!response.ok) {
-      console.error(data.error);
+    if (response) {
+      if (response.errors && response.errors.code === 'parse_error') {
+        for (const field in response.errors.fieldErrors) {
+          if (field !== 'email' && field !== 'password') {
+            continue;
+          }
+          response.errors.fieldErrors[field]?.forEach((message) => {
+            form.setError(field, {
+              type: 'manual',
+              message,
+            });
+          });
+        }
+
+        return;
+      }
+
       toast({
-        title: 'Failed to login',
-        description: data.error,
+        title: 'Failed to sign up',
+        description:
+          response.errors?.message ??
+          'An unknown error occurred, try again later.',
         variant: 'destructive',
       });
       return;
     }
+
+    toast({
+      title: 'Confirmation email sent',
+      description: 'Please check your email to confirm your account',
+      variant: 'default',
+    });
   }
 
   return (

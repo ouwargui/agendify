@@ -6,9 +6,6 @@ const config = {
   content: ['./src/**/*.{ts,tsx}'],
   prefix: '',
   theme: {
-    screens: {
-      xs: '425px',
-    },
     container: {
       center: true,
       padding: '2rem',
@@ -17,6 +14,9 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        xs: '425px',
+      },
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
       },

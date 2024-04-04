@@ -1,5 +1,6 @@
+'use server';
+
 import {createSupabaseServerClient} from '@/lib/supabase/server';
-import {type NextRequest, NextResponse} from 'next/server';
 import {z} from 'zod';
 
 const bodySchema = z
@@ -15,31 +16,31 @@ const bodySchema = z
       ctx.addIssue({
         code: 'custom',
         path: ['confirmPassword'],
+        message: 'Passwords do not match',
       });
     }
   });
 
-export async function POST(request: NextRequest) {
-  const supabase = createSupabaseServerClient();
-
-  const bodyParseResult = bodySchema.safeParse(await request.json());
+export async function signUpAction(formData: FormData) {
+  const requestBody = {
+    firstName: formData.get('firstName'),
+    lastName: formData.get('lastName'),
+    email: formData.get('email'),
+    password: formData.get('password'),
+    confirmPassword: formData.get('confirmPassword'),
+  };
+  const bodyParseResult = bodySchema.safeParse(requestBody);
 
   if (!bodyParseResult.success) {
-    if (bodyParseResult.error.formErrors.fieldErrors.confirmPassword) {
-      return NextResponse.json(
-        {
-          error: 'Passwords do not match',
-          code: 'BAD_REQUEST',
-        },
-        {status: 400},
-      );
-    }
-
-    return NextResponse.json(
-      {error: 'Failed to parse request body', code: 'BAD_REQUEST'},
-      {status: 400},
-    );
+    return {
+      errors: {
+        code: 'parse_error',
+        fieldErrors: bodyParseResult.error.flatten().fieldErrors,
+      },
+    } as const;
   }
+
+  const supabase = createSupabaseServerClient();
 
   const body = bodyParseResult.data;
   const {error} = await supabase.auth.signUp({
@@ -55,8 +56,11 @@ export async function POST(request: NextRequest) {
   });
 
   if (error) {
-    return NextResponse.json({error: error.message}, {status: 400});
+    return {
+      errors: {
+        code: error.code ?? 'unknown_error',
+        message: error.message,
+      },
+    } as const;
   }
-
-  return NextResponse.json({}, {status: 201});
 }
