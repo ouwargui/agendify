@@ -1,5 +1,6 @@
 'use client';
 
+import {signInWithOAuth} from '@/actions/oauth-sign';
 import {signUpAction} from '@/actions/sign-up';
 import {Button} from '@/components/ui/button';
 import {
@@ -105,13 +106,13 @@ export function SignupForm() {
     });
   }
 
+  async function onSignInWithOAuth() {
+    await signInWithOAuth();
+  }
+
   return (
     <Form {...form} formState={{isSubmitting, isValid, errors, ...formState}}>
-      <form
-        className="grid gap-4"
-        onSubmit={form.handleSubmit(onSubmit)}
-        noValidate
-      >
+      <form className="grid gap-4" noValidate>
         <div className="grid xs:grid-cols-2 gap-4 items-start">
           <FormField
             control={form.control}
@@ -185,12 +186,17 @@ export function SignupForm() {
         />
         <Button
           type="submit"
+          onClick={form.handleSubmit(onSubmit)}
           className="w-full"
           disabled={!isValid || isSubmitting}
         >
           Create an account
         </Button>
-        <Button variant="outline" className="w-full">
+        <Button
+          onClick={onSignInWithOAuth}
+          variant="outline"
+          className="w-full"
+        >
           Sign up with Google
         </Button>
       </form>

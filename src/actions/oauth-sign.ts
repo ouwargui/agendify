@@ -28,7 +28,6 @@ export async function signInWithOAuth() {
 
   if (data.url) {
     const redirectTo = new URL(data.url);
-    console.log(redirectTo.href);
     redirect(redirectTo.href); // use the redirect API for your server framework
   }
 }

@@ -1,3 +1,4 @@
+import {HeaderNavbar} from '@/components/header-navbar';
 import {ThemeToggle} from '@/components/ui/theme-toggle';
 import {useUser} from '@/hooks/useUser';
 import Link from 'next/link';
@@ -11,12 +12,7 @@ export async function Header() {
         <h1>Agendify</h1>
       </Link>
       <div className="flex gap-4 items-center">
-        {!user && (
-          <>
-            <Link href="/login">Login</Link>
-            <Link href="/signup">Sign up</Link>
-          </>
-        )}
+        <HeaderNavbar user={user} />
         <ThemeToggle />
       </div>
     </header>

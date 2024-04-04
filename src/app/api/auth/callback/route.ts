@@ -3,7 +3,6 @@ import {revalidatePath} from 'next/cache';
 import {NextResponse} from 'next/server';
 
 export async function GET(request: Request) {
-  console.log('data');
   const {searchParams, origin} = new URL(request.url);
   const code = searchParams.get('code');
   // if "next" is in param, use it as the redirect URL
