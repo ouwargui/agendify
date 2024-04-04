@@ -16,6 +16,7 @@ export async function GET(request: NextRequest) {
   const type = searchParams.get('type') as EmailOtpType | null;
   const next = searchParams.get('next') ?? '/';
   const redirectTo = request.nextUrl.clone();
+  redirectTo.search = '';
   redirectTo.pathname = next;
 
   if (token_hash && type) {
@@ -45,9 +46,16 @@ export async function GET(request: NextRequest) {
     if (!error) {
       return NextResponse.redirect(redirectTo);
     }
+
+    const errorCode = error.code || 'unknown_error';
+    // return the user to an error page with some instructions
+    redirectTo.pathname = '/error';
+    redirectTo.searchParams.set('code', errorCode);
+    return NextResponse.redirect(redirectTo);
   }
 
   // return the user to an error page with some instructions
-  redirectTo.pathname = '/auth/auth-code-error';
+  redirectTo.pathname = '/error';
+  redirectTo.searchParams.set('code', 'unknown_error');
   return NextResponse.redirect(redirectTo);
 }

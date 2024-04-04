@@ -4,6 +4,8 @@ import {z} from 'zod';
 
 const bodySchema = z
   .object({
+    firstName: z.string().min(1),
+    lastName: z.string().min(1),
     email: z.string().email(),
     password: z.string().min(8),
     confirmPassword: z.string().min(8),
@@ -12,7 +14,7 @@ const bodySchema = z
     if (password !== confirmPassword) {
       ctx.addIssue({
         code: 'custom',
-        message: 'Passwords do not match',
+        path: ['confirmPassword'],
       });
     }
   });
@@ -40,7 +42,17 @@ export async function POST(request: NextRequest) {
   }
 
   const body = bodyParseResult.data;
-  const {error} = await supabase.auth.signUp(body);
+  const {error} = await supabase.auth.signUp({
+    email: body.email,
+    password: body.password,
+    options: {
+      data: {
+        firstName: body.firstName,
+        lastName: body.lastName,
+      },
+      emailRedirectTo: 'http://localhosr:3000',
+    },
+  });
 
   if (error) {
     return NextResponse.json({error: error.message}, {status: 400});

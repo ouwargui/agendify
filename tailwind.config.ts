@@ -6,6 +6,9 @@ const config = {
   content: ['./src/**/*.{ts,tsx}'],
   prefix: '',
   theme: {
+    screens: {
+      xs: '425px',
+    },
     container: {
       center: true,
       padding: '2rem',
@@ -34,6 +37,7 @@ const config = {
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
+          background: 'hsl(var(--destructive-background))',
         },
         muted: {
           DEFAULT: 'hsl(var(--muted))',

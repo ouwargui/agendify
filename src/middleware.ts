@@ -1,10 +1,19 @@
+import {updateSupabaseSession} from '@/lib/supabase/middleware';
+import {redirectLoggedUser} from '@/utils/auth/redirects';
 import type {NextRequest} from 'next/server';
-import {updateSupabaseSession} from './lib/supabase/middleware';
 
 export async function middleware(request: NextRequest) {
   const {response, supabase} = updateSupabaseSession(request);
 
-  await supabase.auth.getUser();
+  const userResponse = await supabase.auth.getUser();
+
+  const redirectLoggedUserResponse = redirectLoggedUser(
+    request,
+    userResponse,
+    '/',
+  );
+
+  if (redirectLoggedUserResponse) return redirectLoggedUserResponse;
 
   return response;
 }

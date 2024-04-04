@@ -1,10 +1,24 @@
 import {ThemeToggle} from '@/components/ui/theme-toggle';
+import {useUser} from '@/hooks/useUser';
+import Link from 'next/link';
 
-export function Header() {
+export async function Header() {
+  const user = await useUser();
+
   return (
     <header className="border-b border-input flex max-w-screen-lg justify-between items-center w-dvw px-6 py-4 text-xl">
-      <h1>Agendify</h1>
-      <ThemeToggle />
+      <Link href="/">
+        <h1>Agendify</h1>
+      </Link>
+      <div className="flex gap-4 items-center">
+        {!user && (
+          <>
+            <Link href="/login">Login</Link>
+            <Link href="/signup">Sign up</Link>
+          </>
+        )}
+        <ThemeToggle />
+      </div>
     </header>
   );
 }

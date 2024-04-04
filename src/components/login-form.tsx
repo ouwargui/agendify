@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 
+import {loginAction} from '@/actions/login';
 import {Button} from '@/components/ui/button';
 import {
   Form,
@@ -12,7 +13,6 @@ import {
 } from '@/components/ui/form';
 import {Input} from '@/components/ui/input';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {useRouter} from 'next/navigation';
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
 import {useToast} from './ui/use-toast';
@@ -27,10 +27,9 @@ const formSchema = z.object({
 });
 
 export function LoginForm() {
-  const router = useRouter();
   const {toast} = useToast();
   const {
-    formState: {isSubmitting, isValid, ...formState},
+    formState: {isSubmitting, isValid, errors, ...formState},
     ...form
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,35 +37,43 @@ export function LoginForm() {
       email: '',
       password: '',
     },
-    mode: 'all',
+    mode: 'onBlur',
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    });
+    const formData = new FormData();
+    formData.set('email', values.email);
+    formData.set('password', values.password);
 
-    const data = await response.json();
+    const response = await loginAction(formData);
 
-    if (!response.ok) {
-      console.error(data.error);
-      toast({
-        title: 'Failed to login',
-        description: data.error,
-        variant: 'destructive',
-      });
+    if (!response) return;
+
+    if (response.errors && response.errors.code === 'parse_error') {
+      for (const field in response.errors.fieldErrors) {
+        if (field !== 'email' && field !== 'password') {
+          continue;
+        }
+        response.errors.fieldErrors[field]?.forEach((message) => {
+          form.setError(field, {
+            type: 'manual',
+            message,
+          });
+        });
+      }
+
       return;
     }
 
-    router.replace('/');
+    toast({
+      title: 'Failed to login',
+      description: response.errors?.message ?? 'An unknown error occurred',
+      variant: 'destructive',
+    });
   }
 
   return (
-    <Form {...form} formState={{isSubmitting, isValid, ...formState}}>
+    <Form {...form} formState={{isSubmitting, isValid, errors, ...formState}}>
       <form
         className="grid gap-4"
         onSubmit={form.handleSubmit(onSubmit)}
@@ -83,6 +90,7 @@ export function LoginForm() {
                   placeholder="johndoe@example.com"
                   {...field}
                   type="email"
+                  autoComplete="email"
                 />
               </FormControl>
               <FormMessage />
@@ -117,7 +125,7 @@ export function LoginForm() {
         >
           Login
         </Button>
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full transition-all">
           Login with Google
         </Button>
       </form>
