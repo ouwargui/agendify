@@ -1,5 +1,8 @@
 import {updateSupabaseSession} from '@/lib/supabase/middleware';
-import {redirectLoggedUser} from '@/utils/auth/redirects';
+import {
+  redirectLoggedUser,
+  redirectNotLoggedUser,
+} from '@/utils/auth/redirects';
 import type {NextRequest} from 'next/server';
 
 export async function middleware(request: NextRequest) {
@@ -7,13 +10,16 @@ export async function middleware(request: NextRequest) {
 
   const userResponse = await supabase.auth.getUser();
 
-  const redirectLoggedUserResponse = redirectLoggedUser(
-    request,
-    userResponse,
-    '/',
-  );
+  const redirectLoggedUserResponse = redirectLoggedUser(request, userResponse);
 
   if (redirectLoggedUserResponse) return redirectLoggedUserResponse;
+
+  const redirectNotLoggedUserReponse = redirectNotLoggedUser(
+    request,
+    userResponse,
+  );
+
+  if (redirectNotLoggedUserReponse) return redirectNotLoggedUserReponse;
 
   return response;
 }
