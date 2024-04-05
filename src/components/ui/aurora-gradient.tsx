@@ -2,16 +2,18 @@ import {cn} from '@/lib/shadcn/utils';
 import type {ReactNode} from 'react';
 
 interface AuroraBackgroundProps extends React.HTMLProps<HTMLDivElement> {
-  children: ReactNode;
+  children?: ReactNode;
   showRadialGradient?: boolean;
 }
 
 export function AuroraGradient({
-  children,
   showRadialGradient = true,
 }: AuroraBackgroundProps) {
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div
+      className="absolute inset-0 overflow-hidden pointer-events-none"
+      aria-hidden
+    >
       <div
         className={cn(
           `
@@ -33,7 +35,6 @@ export function AuroraGradient({
             '[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]',
         )}
       />
-      {children}
     </div>
   );
 }

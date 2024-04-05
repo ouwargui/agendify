@@ -1,12 +1,9 @@
-import '@/styles/globals.css';
-import {Inter} from 'next/font/google';
-
-import {Header} from '@/components/header';
-import {AuroraGradient} from '@/components/ui/aurora-gradient';
 import {Toaster} from '@/components/ui/toaster';
 import {cn} from '@/lib/shadcn/utils';
 import {ThemeProvider} from '@/providers/theme-provider';
+import '@/styles/globals.css';
 import type {Metadata} from 'next';
+import {Inter} from 'next/font/google';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -37,12 +34,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative flex min-h-screen flex-col">
-            <AuroraGradient>
-              <Header />
-              <main className="flex-1">{children}</main>
-            </AuroraGradient>
-          </div>
+          <div className="relative flex min-h-screen flex-col">{children}</div>
           <Toaster />
         </ThemeProvider>
       </body>

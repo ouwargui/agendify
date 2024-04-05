@@ -17,7 +17,9 @@ export async function Header() {
           </span>
         </Link>
         <div className="flex gap-4 items-center">
-          <HeaderNavbar user={user} />
+          <div className="hidden sm:block">
+            <HeaderNavbar user={user} />
+          </div>
           <ThemeToggle />
         </div>
       </div>
