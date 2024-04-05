@@ -2,6 +2,7 @@ import '@/styles/globals.css';
 import {Inter} from 'next/font/google';
 
 import {Header} from '@/components/header';
+import {AuroraGradient} from '@/components/ui/aurora-gradient';
 import {Toaster} from '@/components/ui/toaster';
 import {cn} from '@/lib/shadcn/utils';
 import {ThemeProvider} from '@/providers/theme-provider';
@@ -26,7 +27,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          'min-h-screen min-w-[100vw] flex flex-col items-center justify-between bg-background font-sans antialised',
+          'min-h-screen min-w-[100vw] overflow-x-hidden bg-background font-sans antialised',
           inter.variable,
         )}
       >
@@ -36,8 +37,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          {children}
+          <div className="relative flex min-h-screen flex-col">
+            <AuroraGradient>
+              <Header />
+              <main className="flex-1">{children}</main>
+            </AuroraGradient>
+          </div>
           <Toaster />
         </ThemeProvider>
       </body>

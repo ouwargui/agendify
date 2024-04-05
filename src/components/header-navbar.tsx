@@ -55,7 +55,7 @@ export function HeaderNavbar(props: Props) {
             <NavigationMenuLink
               className={cn(
                 navigationMenuTriggerStyle(),
-                'gap-2 bg-primary hover:bg-primary/90 focus:bg-primary/90 text-primary-foreground hover:text-primary-foreground focus:text-primary-foreground dark:text-primary-foreground',
+                'gap-2 bg-primary hover:bg-primary/90 focus:bg-primary/90 text-primary-foreground hover:text-primary-foreground focus:text-primary-foreground dark:text-secondary-foreground',
               )}
             >
               Go to dashboard <ArrowRight />

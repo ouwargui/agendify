@@ -70,14 +70,48 @@ const config = {
           from: {height: 'var(--radix-accordion-content-height)'},
           to: {height: '0'},
         },
+        'animated-gradient': {
+          '0%': {backgroundPosition: '0% 50%'},
+          '50%': {backgroundPosition: '100% 50%'},
+          '100%': {backgroundPosition: '0% 50%'},
+        },
+        aurora: {
+          from: {
+            backgroundPosition: '50% 50%, 50% 50%',
+          },
+          to: {
+            backgroundPosition: '350% 50%, 350% 50%',
+          },
+        },
+      },
+      backgroundSize: {
+        '300%': '300%',
       },
       animation: {
+        aurora: 'aurora 60s linear infinite',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        gradient: 'animated-gradient 6s ease infinite alternate',
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), addVariablesForColors],
 } satisfies Config;
+
+// This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+function addVariablesForColors({addBase, theme}: any) {
+  const {
+    default: flattenColorPalette,
+  } = require('tailwindcss/lib/util/flattenColorPalette');
+  const allColors = flattenColorPalette(theme('colors'));
+  const newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
+  );
+
+  addBase({
+    ':root': newVars,
+  });
+}
 
 export default config;

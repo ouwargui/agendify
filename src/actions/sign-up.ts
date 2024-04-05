@@ -51,7 +51,7 @@ export async function signUpAction(formData: FormData) {
         firstName: body.firstName,
         lastName: body.lastName,
       },
-      emailRedirectTo: 'http://localhosr:3000',
+      emailRedirectTo: 'http://localhost:3000',
     },
   });
 
