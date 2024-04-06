@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 type Props = {
-  buttonProps: ButtonProps;
+  buttonProps: ButtonProps | undefined;
 };
 
 export function ThemeToggle(props: Props) {
