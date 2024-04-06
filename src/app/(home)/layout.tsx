@@ -1,5 +1,3 @@
-import '@/styles/globals.css';
-
 import {Header} from '@/components/header';
 import {AuroraGradient} from '@/components/ui/aurora-gradient';
 import type {Metadata} from 'next';
