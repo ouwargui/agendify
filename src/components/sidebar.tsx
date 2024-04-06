@@ -1,5 +1,13 @@
 'use client';
 
+import {ThemeToggle} from '@/components/ui/theme-toggle';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import {cn} from '@/lib/shadcn/utils';
 import {
   Home,
   LineChart,
@@ -10,16 +18,6 @@ import {
   Users2,
 } from 'lucide-react';
 import Link from 'next/link';
-import {} from './ui/breadcrumb';
-import {} from './ui/dropdown-menu';
-import {} from './ui/sheet';
-import {ThemeToggle} from './ui/theme-toggle';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from './ui/tooltip';
 
 export function Sidebar() {
   return (
@@ -37,7 +35,10 @@ export function Sidebar() {
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                className={cn(
+                  'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8',
+                  {'bg-accent': false},
+                )}
               >
                 <Home className="h-5 w-5" />
                 <span className="sr-only">Dashboard</span>
@@ -51,7 +52,10 @@ export function Sidebar() {
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                className={cn(
+                  'flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8',
+                  {'bg-accent': false},
+                )}
               >
                 <ShoppingCart className="h-5 w-5" />
                 <span className="sr-only">Orders</span>
@@ -65,7 +69,10 @@ export function Sidebar() {
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                className={cn(
+                  'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8',
+                  {'bg-accent': false},
+                )}
               >
                 <Package className="h-5 w-5" />
                 <span className="sr-only">Products</span>
@@ -79,7 +86,10 @@ export function Sidebar() {
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                className={cn(
+                  'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8',
+                  {'bg-accent': false},
+                )}
               >
                 <Users2 className="h-5 w-5" />
                 <span className="sr-only">Customers</span>
@@ -93,7 +103,10 @@ export function Sidebar() {
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                className={cn(
+                  'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8',
+                  {'bg-accent': false},
+                )}
               >
                 <LineChart className="h-5 w-5" />
                 <span className="sr-only">Analytics</span>
@@ -109,7 +122,10 @@ export function Sidebar() {
             <TooltipTrigger asChild>
               <Link
                 href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                className={cn(
+                  'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8',
+                  {'bg-accent': false},
+                )}
               >
                 <Settings className="h-5 w-5" />
                 <span className="sr-only">Settings</span>
