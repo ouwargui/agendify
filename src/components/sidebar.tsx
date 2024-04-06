@@ -28,7 +28,7 @@ export function Sidebar() {
           className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
         >
           <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
-          <span className="sr-only">Acme Inc</span>
+          <span className="sr-only">Agendify</span>
         </Link>
         <TooltipProvider>
           <Tooltip>
@@ -37,7 +37,7 @@ export function Sidebar() {
                 href="#"
                 className={cn(
                   'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8',
-                  {'bg-accent': false},
+                  {'bg-accent': false, 'text-muted-foreground': false},
                 )}
               >
                 <Home className="h-5 w-5" />
@@ -53,8 +53,8 @@ export function Sidebar() {
               <Link
                 href="#"
                 className={cn(
-                  'flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8',
-                  {'bg-accent': false},
+                  'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8',
+                  {'bg-accent': false, 'text-muted-foreground': false},
                 )}
               >
                 <ShoppingCart className="h-5 w-5" />
@@ -71,7 +71,7 @@ export function Sidebar() {
                 href="#"
                 className={cn(
                   'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8',
-                  {'bg-accent': false},
+                  {'bg-accent': false, 'text-muted-foreground': false},
                 )}
               >
                 <Package className="h-5 w-5" />
@@ -88,7 +88,7 @@ export function Sidebar() {
                 href="#"
                 className={cn(
                   'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8',
-                  {'bg-accent': false},
+                  {'bg-accent': false, 'text-muted-foreground': false},
                 )}
               >
                 <Users2 className="h-5 w-5" />
@@ -105,7 +105,7 @@ export function Sidebar() {
                 href="#"
                 className={cn(
                   'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8',
-                  {'bg-accent': false},
+                  {'bg-accent': false, 'text-muted-foreground': false},
                 )}
               >
                 <LineChart className="h-5 w-5" />
@@ -124,7 +124,7 @@ export function Sidebar() {
                 href="#"
                 className={cn(
                   'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8',
-                  {'bg-accent': false},
+                  {'bg-accent': false, 'text-muted-foreground': false},
                 )}
               >
                 <Settings className="h-5 w-5" />
@@ -142,7 +142,11 @@ export function Sidebar() {
                   buttonProps={{
                     variant: 'link',
                     className:
-                      'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8',
+                      'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8 focus-visible:ring-muted-foreground',
+                  }}
+                  iconProps={{
+                    className:
+                      'stroke-muted-foreground hover:stroke-foreground',
                   }}
                 />
               </div>
