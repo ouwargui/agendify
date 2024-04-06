@@ -1,6 +1,6 @@
 import {DashbordHeader} from '@/components/header-dashboard';
 import {Sidebar} from '@/components/sidebar';
-import {createSupabaseServerClient} from '@/lib/supabase/server';
+import {useUser} from '@/hooks/useUser';
 import type {Metadata} from 'next';
 import {redirect} from 'next/navigation';
 
@@ -14,10 +14,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = createSupabaseServerClient();
-  const user = await supabase.auth.getUser();
+  const user = await useUser();
 
-  if (user.error || !user.data.user) {
+  if (!user) {
     redirect('/dashboard');
   }
 
@@ -25,7 +24,7 @@ export default async function RootLayout({
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <Sidebar />
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
-        <DashbordHeader />
+        <DashbordHeader user={user} />
         <main className="flex-1">{children}</main>
       </div>
     </div>

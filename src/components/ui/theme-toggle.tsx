@@ -24,7 +24,7 @@ export function ThemeToggle(props: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="default" size="icon" {...props.buttonProps}>
+        <Button variant="outline" size="icon" {...props.buttonProps}>
           <Sun
             {...props.iconProps}
             className={cn(

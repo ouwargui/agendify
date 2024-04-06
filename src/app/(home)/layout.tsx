@@ -16,7 +16,7 @@ export default function RootLayout({
     <>
       <AuroraGradient />
       <Header />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 flex">{children}</main>
     </>
   );
 }
