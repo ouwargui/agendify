@@ -17,15 +17,15 @@ export default async function RootLayout({
   const user = await useUser();
 
   if (!user) {
-    redirect('/dashboard');
+    redirect('/login');
   }
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <Sidebar />
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+      <div className="flex flex-1 flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <DashbordHeader user={user} />
-        <main className="flex-1">{children}</main>
+        {children}
       </div>
     </div>
   );

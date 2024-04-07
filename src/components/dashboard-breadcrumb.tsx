@@ -9,19 +9,23 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import Link from 'next/link';
-import {usePathname} from 'next/navigation';
-import {Fragment} from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu';
+import Link from 'next/link';
+import {usePathname} from 'next/navigation';
+import {Fragment} from 'react';
 
 export function DashboardBreadcrumb() {
   const pathname = usePathname();
   const paths = pathname.split('/').filter(Boolean);
+
+  if (paths.length === 1) {
+    return null;
+  }
 
   function capitalize(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -75,7 +79,6 @@ export function DashboardBreadcrumb() {
 
     return paths.map((path, index) => {
       const href = `/${paths.slice(0, index + 1).join('/')}`;
-      console.log(path);
 
       return (
         <Fragment key={path}>
