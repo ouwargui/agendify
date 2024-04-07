@@ -13,6 +13,7 @@ import {
 import {Input} from '@/components/ui/input';
 import {zodResolver} from '@hookform/resolvers/zod';
 import Link from 'next/link';
+import type React from 'react';
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
 import {useToast} from './ui/use-toast';
@@ -74,7 +75,8 @@ export function LoginForm() {
     });
   }
 
-  async function onSignInWithOAuth() {
+  async function onSignInWithOAuth(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
     await signInWithOAuth();
   }
 

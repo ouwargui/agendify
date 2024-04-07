@@ -1,5 +1,4 @@
 'use client';
-
 import {signInWithOAuth} from '@/actions/oauth-sign';
 import {signUpAction} from '@/actions/sign-up';
 import {Button} from '@/components/ui/button';
@@ -12,10 +11,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import {Input} from '@/components/ui/input';
+import {useToast} from '@/components/ui/use-toast';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
-import {useToast} from './ui/use-toast';
 
 const formSchema = z
   .object({
@@ -106,7 +105,8 @@ export function SignupForm() {
     });
   }
 
-  async function onSignInWithOAuth() {
+  async function onSignInWithOAuth(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
     await signInWithOAuth();
   }
 
