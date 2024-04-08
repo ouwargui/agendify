@@ -16,7 +16,12 @@ export default async function Dashboard() {
         </h1>
         {shouldShowDownload && <DownloadButton />}
       </section>
-      <section className="flex-1 grid gap-2">
+      <section className="flex-1 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+        <NextAppointmentCard />
+        <NextAppointmentCard />
+        <NextAppointmentCard />
+        <NextAppointmentCard />
+        <NextAppointmentCard />
         <NextAppointmentCard />
       </section>
     </main>
