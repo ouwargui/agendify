@@ -13,12 +13,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from '@/components/ui/input-otp';
+import {InputOTP, InputOTPGroup, InputOTPSlot} from '@/components/ui/input-otp';
 import {RedirectType, redirect, useSearchParams} from 'next/navigation';
 
 const FormSchema = z.object({
@@ -82,15 +77,30 @@ export function InputOTPForm() {
               <FormControl>
                 <InputOTP maxLength={6} {...field}>
                   <InputOTPGroup>
-                    <InputOTPSlot index={0} className="w-20 h-20 text-lg" />
-                    <InputOTPSlot index={1} className="w-20 h-20 text-lg" />
-                    <InputOTPSlot index={2} className="w-20 h-20 text-lg" />
-                  </InputOTPGroup>
-                  <InputOTPSeparator />
-                  <InputOTPGroup>
-                    <InputOTPSlot index={3} className="w-20 h-20 text-lg" />
-                    <InputOTPSlot index={4} className="w-20 h-20 text-lg" />
-                    <InputOTPSlot index={5} className="w-20 h-20 text-lg" />
+                    <InputOTPSlot
+                      index={0}
+                      className="h-20 w-10 xs:h-15 sx:w-15 md:w-20 md:h-20 text-lg"
+                    />
+                    <InputOTPSlot
+                      index={1}
+                      className="h-20 w-10 xs:h-15 sx:w-15 md:w-20 md:h-20 text-lg"
+                    />
+                    <InputOTPSlot
+                      index={2}
+                      className="h-20 w-10 xs:h-15 sx:w-15 md:w-20 md:h-20 text-lg"
+                    />
+                    <InputOTPSlot
+                      index={3}
+                      className="h-20 w-10 xs:h-15 sx:w-15 md:w-20 md:h-20 text-lg"
+                    />
+                    <InputOTPSlot
+                      index={4}
+                      className="h-20 w-10 xs:h-15 sx:w-15 md:w-20 md:h-20 text-lg"
+                    />
+                    <InputOTPSlot
+                      index={5}
+                      className="h-20 w-10 xs:h-15 sx:w-15 md:w-20 md:h-20 text-lg"
+                    />
                   </InputOTPGroup>
                 </InputOTP>
               </FormControl>
