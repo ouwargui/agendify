@@ -1,20 +1,20 @@
 'use server';
 
 import {createSupabaseServerClient} from '@/lib/supabase/server';
-import {revalidatePath} from 'next/cache';
 import {redirect} from 'next/navigation';
 import {z} from 'zod';
 
 const bodySchema = z.object({
   email: z.string().email(),
-  password: z.string().min(8),
+  otp: z.string().min(6),
 });
 
-export async function loginAction(formData: FormData) {
+export async function verifyOtpAction(formData: FormData) {
   const requestBody = {
     email: formData.get('email'),
-    password: formData.get('password'),
+    otp: formData.get('otp'),
   };
+  console.log(requestBody);
   const bodyParseResult = bodySchema.safeParse(requestBody);
 
   if (!bodyParseResult.success) {
@@ -27,19 +27,21 @@ export async function loginAction(formData: FormData) {
   }
 
   const supabase = createSupabaseServerClient();
+  const {error} = await supabase.auth.verifyOtp({
+    email: bodyParseResult.data.email,
+    token: bodyParseResult.data.otp,
+    type: 'email',
+  });
 
-  const body = bodyParseResult.data;
-  const {error} = await supabase.auth.signInWithPassword(body);
-
+  console.log(error);
   if (error) {
     return {
       errors: {
-        code: error.code ?? 'unknown_error',
+        code: 'supabase_error',
         message: error.message,
       },
     } as const;
   }
 
-  revalidatePath('/', 'layout');
   redirect('/dashboard');
 }

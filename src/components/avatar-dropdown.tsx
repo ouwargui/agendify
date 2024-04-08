@@ -23,11 +23,18 @@ export function AvatarDropdown(props: Props) {
       return user.user_metadata.full_name
         .split(' ')
         .map((name: string) => name.charAt(0))
-        .join('');
+        .join('')
+        .toUpperCase();
+    }
+
+    if (user.user_metadata?.firstName && user.user_metadata?.lastName) {
+      return `${user.user_metadata.firstName.charAt(
+        0,
+      )}${user.user_metadata.lastName.charAt(0)}`.toUpperCase();
     }
 
     if (user.email) {
-      return `${user.email.charAt(0)}${user.email.charAt(1)}`;
+      return `${user.email.charAt(0)}${user.email.charAt(1)}`.toUpperCase();
     }
 
     return '??';

@@ -97,12 +97,6 @@ export function SignupForm() {
       });
       return;
     }
-
-    toast({
-      title: 'Confirmation email sent',
-      description: 'Please check your email to confirm your account',
-      variant: 'default',
-    });
   }
 
   async function onSignInWithOAuth(e: React.MouseEvent<HTMLButtonElement>) {
@@ -165,7 +159,7 @@ export function SignupForm() {
             <FormItem className="grid gap-2">
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input {...field} type="password" />
+                <Input {...field} type="password" placeholder="••••••••" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -178,7 +172,7 @@ export function SignupForm() {
             <FormItem className="grid gap-2">
               <FormLabel>Confirm your password</FormLabel>
               <FormControl>
-                <Input {...field} type="password" />
+                <Input {...field} type="password" placeholder="••••••••" />
               </FormControl>
               <FormMessage />
             </FormItem>

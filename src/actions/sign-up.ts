@@ -1,6 +1,7 @@
 'use server';
 
 import {createSupabaseServerClient} from '@/lib/supabase/server';
+import {redirect} from 'next/navigation';
 import {z} from 'zod';
 
 const bodySchema = z
@@ -51,7 +52,7 @@ export async function signUpAction(formData: FormData) {
         firstName: body.firstName,
         lastName: body.lastName,
       },
-      emailRedirectTo: 'http://localhost:3000',
+      emailRedirectTo: 'http://localhost:3000/api/auth/confirm',
     },
   });
 
@@ -63,4 +64,6 @@ export async function signUpAction(formData: FormData) {
       },
     } as const;
   }
+
+  redirect(`/otp?email=${encodeURIComponent(body.email)}`);
 }

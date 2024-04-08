@@ -84,6 +84,10 @@ const config = {
             backgroundPosition: '350% 50%, 350% 50%',
           },
         },
+        'caret-blink': {
+          '0%,70%,100%': {opacity: '1'},
+          '20%,50%': {opacity: '0'},
+        },
       },
       backgroundSize: {
         '300%': '300%',
@@ -93,6 +97,7 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         gradient: 'animated-gradient 6s ease infinite alternate',
+        'caret-blink': 'caret-blink 1.25s ease-out infinite',
       },
     },
   },
