@@ -2,6 +2,11 @@
 import {createSupabaseServerClient} from '@/lib/supabase/server';
 import {z} from 'zod';
 
+const APP_URL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://agendify.vercel.app'
+    : 'http://localhost:3000';
+
 const bodySchema = z.object({
   email: z.string().email(),
 });
@@ -25,7 +30,7 @@ export async function forgotPasswordAction(formData: FormData) {
 
   const body = bodyParseResult.data;
   const {error} = await supabase.auth.resetPasswordForEmail(body.email, {
-    redirectTo: 'http://localhost:3000/reset-password',
+    redirectTo: `${APP_URL}/api/auth/confirm`,
   });
 
   if (error) {

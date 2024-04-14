@@ -1,7 +1,5 @@
 import {Header} from '@/components/header';
-import {createSupabaseServerClient} from '@/lib/supabase/server';
 import type {Metadata} from 'next';
-import {redirect} from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -13,13 +11,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = createSupabaseServerClient();
-  const user = await supabase.auth.getUser();
-
-  if (user.data.user) {
-    redirect('/dashboard');
-  }
-
   return (
     <>
       <Header />

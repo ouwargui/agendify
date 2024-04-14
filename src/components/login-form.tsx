@@ -14,6 +14,7 @@ import {Input} from '@/components/ui/input';
 import {zodResolver} from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import type React from 'react';
+import {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
 import {useToast} from './ui/use-toast';
@@ -27,7 +28,11 @@ const formSchema = z.object({
   }),
 });
 
-export function LoginForm() {
+type Props = {
+  shouldShowResetPasswordSuccess: boolean;
+};
+
+export function LoginForm({shouldShowResetPasswordSuccess = false}: Props) {
   const {toast} = useToast();
   const {
     formState: {isSubmitting, isValid, errors, ...formState},
@@ -79,6 +84,17 @@ export function LoginForm() {
     e.preventDefault();
     await signInWithOAuth();
   }
+
+  useEffect(() => {
+    console.log(shouldShowResetPasswordSuccess);
+    if (shouldShowResetPasswordSuccess) {
+      toast({
+        title: 'Your password has been reset',
+        description: 'You can now sign in with your new password',
+        variant: 'default',
+      });
+    }
+  }, [shouldShowResetPasswordSuccess, toast]);
 
   return (
     <Form {...form} formState={{isSubmitting, isValid, errors, ...formState}}>

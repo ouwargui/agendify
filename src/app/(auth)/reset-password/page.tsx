@@ -1,28 +1,28 @@
-import {SignupForm} from '@/components/signup-form';
+import {ResetPasswordForm} from '@/components/reset-password-form';
 import {useUser} from '@/hooks/useUser';
 import Link from 'next/link';
 import {RedirectType, redirect} from 'next/navigation';
 
-export default async function Signup() {
-  const user = await useUser();
+export default function ResetPassword() {
+  const user = useUser();
 
-  if (user) {
-    redirect('/dashboard', RedirectType.replace);
+  if (!user) {
+    redirect('/login', RedirectType.replace);
   }
 
   return (
-    <main className="w-full flex-1 px-4">
+    <main className="w-full flex-1">
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Sign up</h1>
+            <h1 className="text-3xl font-bold">Reset your password</h1>
             <p className="text-balance text-muted-foreground">
-              Enter your information to create an account
+              Enter your new password below
             </p>
           </div>
-          <SignupForm />
+          <ResetPasswordForm />
           <div className="mt-4 text-center text-sm">
-            Already have an account?{' '}
+            Remember your password?{' '}
             <Link href="/login" className="underline">
               Sign in
             </Link>

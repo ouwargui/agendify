@@ -1,7 +1,19 @@
 import {LoginForm} from '@/components/login-form';
+import {useUser} from '@/hooks/useUser';
 import Link from 'next/link';
+import {RedirectType, redirect} from 'next/navigation';
 
-export default function Login() {
+export default async function Login({
+  searchParams,
+}: {searchParams: {[key: string]: string | string[] | undefined}}) {
+  const user = await useUser();
+  const shouldShowResetPasswordSuccess =
+    searchParams.resetPassword === 'success';
+
+  if (user && !shouldShowResetPasswordSuccess) {
+    redirect('/dashboard', RedirectType.replace);
+  }
+
   return (
     <main className="w-full flex-1">
       <div className="flex items-center justify-center py-12">
@@ -12,7 +24,9 @@ export default function Login() {
               Enter your email below to login to your account
             </p>
           </div>
-          <LoginForm />
+          <LoginForm
+            shouldShowResetPasswordSuccess={shouldShowResetPasswordSuccess}
+          />
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{' '}
             <Link href="/signup" className="underline">
