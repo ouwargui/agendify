@@ -30,7 +30,7 @@ export function Sidebar() {
           <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
           <span className="sr-only">Agendify</span>
         </Link>
-        <TooltipProvider>
+        <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
@@ -47,7 +47,7 @@ export function Sidebar() {
             <TooltipContent side="right">Dashboard</TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        <TooltipProvider>
+        <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
@@ -64,7 +64,7 @@ export function Sidebar() {
             <TooltipContent side="right">Orders</TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        <TooltipProvider>
+        <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
@@ -81,7 +81,7 @@ export function Sidebar() {
             <TooltipContent side="right">Products</TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        <TooltipProvider>
+        <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
@@ -98,7 +98,7 @@ export function Sidebar() {
             <TooltipContent side="right">Customers</TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        <TooltipProvider>
+        <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
@@ -117,7 +117,7 @@ export function Sidebar() {
         </TooltipProvider>
       </nav>
       <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
-        <TooltipProvider>
+        <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
@@ -134,7 +134,7 @@ export function Sidebar() {
             <TooltipContent side="right">Settings</TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        <TooltipProvider>
+        <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>
               <div>
