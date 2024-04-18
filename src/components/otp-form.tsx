@@ -14,7 +14,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import {InputOTP, InputOTPGroup, InputOTPSlot} from '@/components/ui/input-otp';
-import {RedirectType, redirect, useSearchParams} from 'next/navigation';
 
 const FormSchema = z.object({
   pin: z.string().min(6, {
@@ -22,13 +21,11 @@ const FormSchema = z.object({
   }),
 });
 
-export function InputOTPForm() {
-  const searchParams = useSearchParams();
-  const email = searchParams.get('email') as string;
-  if (!email) {
-    redirect('/login', RedirectType.replace);
-  }
+type Props = {
+  email: string;
+};
 
+export function InputOTPForm(props: Props) {
   const {
     formState: {isSubmitting, isValid, errors, ...formState},
     ...form
@@ -42,7 +39,7 @@ export function InputOTPForm() {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     const formData = new FormData();
-    formData.set('email', email);
+    formData.set('email', props.email);
     formData.set('otp', data.pin);
 
     const response = await verifyOtpAction(formData);

@@ -1,6 +1,23 @@
 import {InputOTPForm} from '@/components/otp-form';
+import {useUser} from '@/hooks/useUser';
+import {RedirectType, redirect} from 'next/navigation';
 
-export default function Otp() {
+export default async function Otp(props: {
+  searchParams: {
+    [key: string]: string | string[] | undefined;
+  };
+}) {
+  const email = props.searchParams.email as string | undefined;
+  const user = await useUser();
+
+  if (!email) {
+    redirect('/login', RedirectType.replace);
+  }
+
+  if (user) {
+    redirect('/dashboard', RedirectType.replace);
+  }
+
   return (
     <main className="w-full flex-1 px-4">
       <div className="flex items-center justify-center py-12">
@@ -12,7 +29,7 @@ export default function Otp() {
             </p>
           </div>
           <div className="mx-auto">
-            <InputOTPForm />
+            <InputOTPForm email={email} />
           </div>
         </div>
       </div>
