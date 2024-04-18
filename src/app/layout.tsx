@@ -30,8 +30,10 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          // disable light mode for now
+          forcedTheme="dark"
+          // defaultTheme="system"
+          // enableSystem
           disableTransitionOnChange
         >
           <div className="relative flex min-h-screen flex-col">{children}</div>

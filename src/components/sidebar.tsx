@@ -1,6 +1,4 @@
 'use client';
-
-import {ThemeToggle} from '@/components/ui/theme-toggle';
 import {
   Tooltip,
   TooltipContent,
@@ -132,26 +130,6 @@ export function Sidebar() {
               </Link>
             </TooltipTrigger>
             <TooltipContent side="right">Settings</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <TooltipProvider delayDuration={0}>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div>
-                <ThemeToggle
-                  buttonProps={{
-                    variant: 'link',
-                    className:
-                      'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8 focus-visible:ring-muted-foreground',
-                  }}
-                  iconProps={{
-                    className:
-                      'stroke-muted-foreground hover:stroke-foreground',
-                  }}
-                />
-              </div>
-            </TooltipTrigger>
-            <TooltipContent side="right">Theme</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </nav>

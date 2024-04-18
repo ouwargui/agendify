@@ -1,4 +1,3 @@
-import {ThemeToggle} from '@/components/ui/theme-toggle';
 import Link from 'next/link';
 
 export async function Header() {
@@ -10,9 +9,9 @@ export async function Header() {
             agendify.
           </span>
         </Link>
-        <div className="flex gap-4 items-center">
+        {/* <div className="flex gap-4 items-center">
           <ThemeToggle />
-        </div>
+        </div> */}
       </div>
     </header>
   );
