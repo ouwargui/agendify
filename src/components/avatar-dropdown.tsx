@@ -2,6 +2,7 @@
 
 import {signOutAction} from '@/actions/sign-out';
 import type {User} from '@supabase/supabase-js';
+import Link from 'next/link';
 import {Avatar, AvatarFallback} from './ui/avatar';
 import {Button} from './ui/button';
 import {
@@ -60,10 +61,22 @@ export function AvatarDropdown(props: Props) {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link className="cursor-pointer" href="/dashboard/account">
+            Settings
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleSignOut}>Logout</DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <button
+            className="w-full cursor-pointer"
+            type="button"
+            onClick={handleSignOut}
+          >
+            Logout
+          </button>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
