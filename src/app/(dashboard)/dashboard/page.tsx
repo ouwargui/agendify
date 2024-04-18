@@ -1,7 +1,5 @@
 import {NextAppointmentCard} from '@/components/next-appointments-card';
-import {} from '@/components/ui/avatar';
 import {Button} from '@/components/ui/button';
-import {} from '@/components/ui/card';
 import {DatePickerWithRange} from '@/components/ui/date-picker-with-range';
 import {DownloadIcon} from 'lucide-react';
 
